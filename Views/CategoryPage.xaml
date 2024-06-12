@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MealApp.Views.CategoryPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Compat.Maui"
+    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Compat.Transformations"
+    xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+    x:Name="This"
+    ios:Page.UseSafeArea="False"
+    Background="#FFFFFF"
+    NavigationPage.HasNavigationBar="False">
+    <Grid
+        BackgroundColor="White"
+        HorizontalOptions="FillAndExpand"
+        RowDefinitions="50,1,*"
+        VerticalOptions="FillAndExpand">
+        <!--  Page Header  -->
+        <Label
+            Grid.Row="0"
+            FontAttributes="Bold"
+            FontSize="16"
+            HorizontalOptions="Center"
+            Text="Categories"
+            TextColor="Black"
+            VerticalOptions="Center" />
+        <BoxView
+            Grid.Row="1"
+            BackgroundColor="LightGray"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand" />
+        <!--  Category List  -->
+        <ListView
+            x:Name="OrderListView"
+            Grid.Row="4"
+            Margin="15,0"
+            BackgroundColor="{StaticResource White}"
+            HasUnevenRows="True"
+            HorizontalOptions="FillAndExpand"
+            ItemsSource="{Binding AllCategoryList}"
+            SelectionMode="None"
+            SeparatorVisibility="None"
+            VerticalOptions="FillAndExpand"
+            VerticalScrollBarVisibility="Never">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Border
+                            Grid.Row="1"
+                            Margin="0,5"
+                            Padding="12,12"
+                            BackgroundColor="{StaticResource Gray100}"
+                            HeightRequest="120"
+                            Stroke="Black"
+                            VerticalOptions="FillAndExpand">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10,10,10,10" />
+                            </Border.StrokeShape>
+                            <Grid
+                                ColumnDefinitions="100,*"
+                                ColumnSpacing="10"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="FillAndExpand">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.CategoryTapCommand, Source={x:Reference Name=This}}" CommandParameter="{Binding .}" />
+                                </Grid.GestureRecognizers>
+
+                                <ffimageloading:CachedImage
+                                    Grid.Column="0"
+                                    Aspect="AspectFit"
+                                    HorizontalOptions="FillAndExpand"
+                                    Source="{Binding strCategoryThumb}"
+                                    VerticalOptions="FillAndExpand">
+                                    <ffimageloading:CachedImage.Transformations>
+                                        <fftransformations:CornersTransformation
+                                            BottomLeftCornerSize="5"
+                                            BottomRightCornerSize="5"
+                                            CornersTransformType="AllRounded"
+                                            TopLeftCornerSize="5"
+                                            TopRightCornerSize="5" />
+                                    </ffimageloading:CachedImage.Transformations>
+                                </ffimageloading:CachedImage>
+                                <Grid
+                                    Grid.Column="1"
+                                    HorizontalOptions="FillAndExpand"
+                                    RowDefinitions="Auto,*"
+                                    VerticalOptions="FillAndExpand">
+                                    <Label
+                                        Grid.Row="0"
+                                        FontAttributes="Bold"
+                                        FontSize="15"
+                                        HorizontalOptions="StartAndExpand"
+                                        Text="{Binding strCategory}"
+                                        TextColor="Black"
+                                        VerticalOptions="Center" />
+                                    <Label
+                                        Grid.Row="1"
+                                        FontSize="12"
+                                        HorizontalOptions="StartAndExpand"
+                                        LineBreakMode="WordWrap"
+                                        MaxLines="3"
+                                        Text="{Binding strCategoryDescription}"
+                                        TextColor="Black"
+                                        VerticalOptions="StartAndExpand" />
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</ContentPage>

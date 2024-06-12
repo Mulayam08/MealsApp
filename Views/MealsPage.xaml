@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MealApp.Views.MealsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Compat.Maui"
+    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Compat.Transformations"
+    xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+    x:Name="This"
+    Title="MealsPage"
+    ios:Page.UseSafeArea="False"
+    Background="#FFFFFF"
+    NavigationPage.HasNavigationBar="False">
+    <Grid
+        BackgroundColor="White"
+        HorizontalOptions="FillAndExpand"
+        RowDefinitions="50,1,40,1,*"
+        VerticalOptions="FillAndExpand">
+        <!--  Page Header  -->
+        <Grid
+            Grid.Row="0"
+            HeightRequest="50"
+            HorizontalOptions="StartAndExpand"
+            VerticalOptions="FillAndExpand"
+            WidthRequest="50">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding BackCommand}" />
+            </Grid.GestureRecognizers>
+            <Image
+                Aspect="AspectFill"
+                HeightRequest="10"
+                HorizontalOptions="Center"
+                Source="back.png"
+                VerticalOptions="Center"
+                WidthRequest="15" />
+        </Grid>
+        <Label
+            Grid.Row="0"
+            FontAttributes="Bold"
+            FontSize="15"
+            HorizontalOptions="Center"
+            Text="Meals"
+            TextColor="Black"
+            VerticalOptions="Center" />
+        <BoxView
+            Grid.Row="1"
+            BackgroundColor="LightGray"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand" />
+        <Label
+            Grid.Row="2"
+            Margin="15,0"
+            FontAttributes="Bold"
+            FontSize="16"
+            HorizontalOptions="StartAndExpand"
+            Text="{Binding SelectedCategory.strCategory}"
+            TextColor="Black"
+            VerticalOptions="Center" />
+        <BoxView
+            Grid.Row="3"
+            BackgroundColor="LightGray"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand" />
+        <!--  Category List  -->
+        <ListView
+            x:Name="OrderListView"
+            Grid.Row="4"
+            Margin="15,0"
+            BackgroundColor="{StaticResource White}"
+            HasUnevenRows="True"
+            HorizontalOptions="FillAndExpand"
+            IsPullToRefreshEnabled="True"
+            ItemsSource="{Binding AllMealList}"
+            SelectionMode="None"
+            SeparatorVisibility="None"
+            VerticalOptions="FillAndExpand"
+            VerticalScrollBarVisibility="Never">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Border
+                            Grid.Row="1"
+                            Margin="0,5"
+                            Padding="12,12"
+                            BackgroundColor="{StaticResource Gray100}"
+                            HeightRequest="120"
+                            Stroke="Black"
+                            VerticalOptions="FillAndExpand">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10,10,10,10" />
+                            </Border.StrokeShape>
+                            <Grid
+                                ColumnDefinitions="100,*"
+                                ColumnSpacing="10"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="FillAndExpand">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.MealTapCommand, Source={x:Reference Name=This}}" CommandParameter="{Binding .}" />
+                                </Grid.GestureRecognizers>
+                                <ffimageloading:CachedImage
+                                    Grid.Column="0"
+                                    Aspect="AspectFit"
+                                    HorizontalOptions="FillAndExpand"
+                                    Source="{Binding strMealThumb}"
+                                    VerticalOptions="FillAndExpand">
+                                    <ffimageloading:CachedImage.Transformations>
+                                        <fftransformations:CornersTransformation
+                                            BottomLeftCornerSize="5"
+                                            BottomRightCornerSize="5"
+                                            CornersTransformType="AllRounded"
+                                            TopLeftCornerSize="5"
+                                            TopRightCornerSize="5" />
+                                    </ffimageloading:CachedImage.Transformations>
+                                </ffimageloading:CachedImage>
+
+                                <Grid
+                                    Grid.Column="1"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="FillAndExpand">
+                                    <Label
+                                        Grid.Row="0"
+                                        FontAttributes="Bold"
+                                        FontSize="15"
+                                        HorizontalOptions="Center"
+                                        LineBreakMode="WordWrap"
+                                        Text="{Binding strMeal}"
+                                        TextColor="Black"
+                                        VerticalOptions="Center" />
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</ContentPage>

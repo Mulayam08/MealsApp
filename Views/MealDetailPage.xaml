@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MealApp.Views.MealDetailPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Compat.Maui"
+    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Compat.Transformations"
+    xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+    Title="MealDetailPage"
+    ios:Page.UseSafeArea="False"
+    Background="#FFFFFF"
+    NavigationPage.HasNavigationBar="False">
+    <Grid
+        BackgroundColor="White"
+        HorizontalOptions="FillAndExpand"
+        RowDefinitions="50,1,200,Auto,Auto,*"
+        RowSpacing="5"
+        VerticalOptions="FillAndExpand">
+        <!--  Page Header  -->
+        <Grid
+            Grid.Row="0"
+            BackgroundColor="White"
+            HeightRequest="50"
+            HorizontalOptions="StartAndExpand"
+            VerticalOptions="FillAndExpand"
+            WidthRequest="50">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding BackCommand}" />
+            </Grid.GestureRecognizers>
+            <Image
+                Aspect="AspectFill"
+                HeightRequest="10"
+                HorizontalOptions="Center"
+                Source="back.png"
+                VerticalOptions="Center"
+                WidthRequest="15" />
+        </Grid>
+        <Label
+            Grid.Row="0"
+            FontAttributes="Bold"
+            FontSize="15"
+            HorizontalOptions="Center"
+            Text="Recipe"
+            TextColor="Black"
+            VerticalOptions="Center" />
+        <BoxView
+            Grid.Row="1"
+            BackgroundColor="LightGray"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand" />
+        <ffimageloading:CachedImage
+            Grid.Row="2"
+            HeightRequest="200"
+            HorizontalOptions="FillAndExpand"
+            Source="{Binding MealDetail.strMealThumb}"
+            VerticalOptions="FillAndExpand">
+            <ffimageloading:CachedImage.Transformations>
+                <fftransformations:CornersTransformation
+                    BottomLeftCornerSize="5"
+                    BottomRightCornerSize="5"
+                    CornersTransformType="AllRounded"
+                    TopLeftCornerSize="5"
+                    TopRightCornerSize="5" />
+            </ffimageloading:CachedImage.Transformations>
+        </ffimageloading:CachedImage>
+        <Grid
+            Grid.Row="3"
+            Margin="15,0"
+            ColumnDefinitions="Auto,*"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand">
+            <Label
+                Grid.Column="0"
+                FontAttributes="Bold"
+                HorizontalOptions="StartAndExpand"
+                Text="Recipe Name : "
+                TextColor="Black"
+                VerticalOptions="StartAndExpand" />
+            <Label
+                Grid.Column="1"
+                HorizontalOptions="StartAndExpand"
+                Text="{Binding MealDetail.strMeal}"
+                TextColor="Black"
+                VerticalOptions="StartAndExpand" />
+        </Grid>
+        <Label
+            Grid.Row="4"
+            Margin="15,0"
+            FontAttributes="Bold"
+            HorizontalOptions="StartAndExpand"
+            Text="Instructions :"
+            TextColor="Black"
+            VerticalOptions="Center" />
+        <Label
+            Grid.Row="5"
+            Margin="15,0"
+            FontSize="12"
+            HorizontalOptions="FillAndExpand"
+            LineBreakMode="WordWrap"
+            Text="{Binding MealDetail.strInstructions}"
+            TextColor="Black"
+            VerticalOptions="FillAndExpand" />
+    </Grid>
+
+</ContentPage>
